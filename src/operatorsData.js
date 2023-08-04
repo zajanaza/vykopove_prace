@@ -3,31 +3,31 @@ const operators = [
     id: 1,
     name: "Josef",
     surname: "Novák",
-    age: 30,
+    gender: "men",
   },
   {
     id: 2,
     name: "Honza",
     surname: "Kratochvíl",
-    age: 35,
+    gender: "men",
   },
   {
     id: 3,
     name: "Eliška",
     surname: "Voříšková",
-    age: 28,
+    gender: "women",
   },
   {
     id: 4,
     name: "Alena",
     surname: "Rychlá",
-    age: 33,
+    gender: "women",
   },
   {
     id: 5,
     name: "Ivan",
     surname: "Kupec",
-    age: 29,
+    gender: "men",
   },
 ];
 

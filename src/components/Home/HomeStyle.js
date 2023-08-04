@@ -43,6 +43,10 @@ padding-left: 10px;
 `;
 
 export const Button = styled.button`
-width: 130px;
-height: 25px;
+width: 330px;
+height: 40px;
+background-color: black;
+color:#D9C0AE;
+border:none;
+border-radius: 5px;
 `;
