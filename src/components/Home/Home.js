@@ -1,10 +1,11 @@
 import React from "react";
 import operators from '../../operatorsData';
 import { PageContainer, OperatorList, OperatorItem, OperatorForm, Input, Button } from './HomeStyle';
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function Home() {
   const [listOfOperators, setListOfOperators] =useState(operators);
+  const operatorsCount = useRef(operators.length);
   const [newOperator, setNewOperator] = useState({
     id: (listOfOperators.length > 0 ? Math.max(...listOfOperators.map(operator => operator.id)) + 1 : 1),
     name:"",
@@ -33,23 +34,39 @@ export default function Home() {
     setListOfOperators((listOfOperators) => {
       return [...listOfOperators, newOperator];
     });
-    const newOperatorId = newOperator.id + 1;
+    operatorsCount.current++;
     const newOperatorGender = newOperator.gender;
     const updateOperator = {
-      id: newOperatorId,
+      id: (operatorsCount.current + 1),
       name:"",
       surname:"",
       gender:newOperatorGender,      
     }
     setNewOperator(updateOperator); 
-    setValid(false);
+    setValid(false);    
   };  
+  const handleDelete = (idToDel) => {
+    setListOfOperators(listOfOperators.filter((operator) => operator.id !== idToDel));
+  };
   return (
     <PageContainer>
       <OperatorList name='operatorList'>
         {listOfOperators.map((operator) => {
           return(
-            <OperatorItem key={operator.id}>{operator.name}  {operator.surname} - {operator.gender}
+            <OperatorItem key={operator.id}>
+              {operator.name}  {operator.surname} - {operator.gender}
+              <button
+              style={{
+                  color: 'black',
+                  fontWeight: 'bolder',
+                  border: 2 + 'px solid #D9C0AE',
+                  borderRadius: 50 + '%',
+                  height: 25 + 'px', 
+                  width: 25 + 'px' 
+              }}
+              onClick={() => {handleDelete(operator.id)}}>
+              X
+              </button>
             </OperatorItem>
           )
         })}
