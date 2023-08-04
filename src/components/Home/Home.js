@@ -1,6 +1,6 @@
 import React from "react";
 import operators from '../../operatorsData';
-import { PageContainer, OperatorList, OperatorItem, OperatorForm, Input, Button, Buttons, TabButton, ShelterForm, TabButton2 } from './HomeStyle';
+import { PageContainer, OperatorList, OperatorItem, OperatorForm, Input, Button, Buttons, TabButton, ShelterForm } from './HomeStyle';
 import { useState, useRef } from "react";
 
 export default function Home() {
@@ -57,8 +57,28 @@ export default function Home() {
     if (genderToDel === 'men') {
       setCountMen(countMen-1)
     } else setCountWomen(countWomen-1);
-  }; 
+  };
+  const [meters, setMeters] = useState(0);
+  const [hours, setHours] = useState(0);
   
+  const handleChange2 = (e) => {
+    setMeters(e.target.value);
+    validateCapacity();
+  };
+  const handleChange3 = (e) => {
+    setHours(e.target.value);
+    validateCapacity();
+  };
+  const [capacity,setCapacity] =useState(false);
+  
+  const validateCapacity = () => {    
+    if ((((countMen*1)+(countWomen*0.5))*hours) < meters) {
+      return setCapacity(false);
+    } else setCapacity(true);
+  };
+    const test =() => {
+    console.log((((countMen*1)+(countWomen*0.5))*hours))
+  };
   return (
     <PageContainer>
       <Buttons>
@@ -125,12 +145,14 @@ export default function Home() {
           <Input 
           type="number"
           min="0"
-          placeholder="Enter meters"/>          
+          placeholder="Enter meters"        
+          onChange={handleChange2}/>          
           <Input 
           type="number"
           min="0"
-          placeholder="Enter hours"/>  
-          <TabButton2>Work planning</TabButton2>        
+          placeholder="Enter hours"   
+          onChange={handleChange3}/>                                
+          <Button disabled={!capacity} onClick={test}>Work planning</Button>        
         </ShelterForm>
       </>}  
     </PageContainer>  

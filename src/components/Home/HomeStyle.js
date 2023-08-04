@@ -82,6 +82,3 @@ export const ShelterForm = styled(OperatorForm)`
 
 `;     
 
-export const TabButton2 = styled(TabButton)`
-
-`;
