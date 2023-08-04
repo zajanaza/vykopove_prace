@@ -5,6 +5,45 @@ import { useState } from "react";
 
 export default function Home() {
   const [listOfOperators, setListOfOperators] =useState(operators);
+  const [newOperator, setNewOperator] = useState({
+    id: (listOfOperators.length > 0 ? Math.max(...listOfOperators.map(operator => operator.id)) + 1 : 1),
+    name:"",
+    surname:"",
+    gender: ""
+  });
+  const [valid, setValid] = useState(false);
+  
+  const handleChange = (e) =>{
+    const updateOperator = {...newOperator, [e.target.name]: e.target.value};
+    setNewOperator(updateOperator); 
+    validateData(updateOperator);   
+  };
+  const validateData = (operator) => {
+    if (operator.gender === "") {
+      return setValid(false);
+    } else if (operator.name.trim().length === 0) {
+      return setValid(false);
+    }else if (operator.surname.trim().length === 0) {
+      return setValid(false);
+    }
+    setValid(true);
+  };
+
+  const handleAdd = () =>  {
+    setListOfOperators((listOfOperators) => {
+      return [...listOfOperators, newOperator];
+    });
+    const newOperatorId = newOperator.id + 1;
+    const newOperatorGender = newOperator.gender;
+    const updateOperator = {
+      id: newOperatorId,
+      name:"",
+      surname:"",
+      gender:newOperatorGender,      
+    }
+    setNewOperator(updateOperator); 
+    setValid(false);
+  };  
   return (
     <PageContainer>
       <OperatorList name='operatorList'>
@@ -19,22 +58,28 @@ export default function Home() {
         <Input
           type='text'
           placeholder='jmeno'
-          name='name' />       
+          name='name'
+          value={newOperator.name}
+          onChange={handleChange} />       
         <Input 
           type='text'
           placeholder='surname'
-          name='surname'/>        
+          name='surname'
+          value={newOperator.surname}
+          onChange={handleChange}/>        
         <Input 
           type='radio'
           name='gender'
-          value='men'          
-          />MEN        
+          value='men'                                     
+          onChange={handleChange}         
+          />MEN       
         <Input 
           type='radio'
           name='gender'
-          value='women'
-          />WOMEN
-        <Button>Add Employee</Button>
+          value='women'           
+          onChange={handleChange}         
+          />WOMEN  
+        <Button disabled={!valid} onClick={handleAdd}>Add Employee</Button>
       </OperatorForm>
     </PageContainer>  
   )  
