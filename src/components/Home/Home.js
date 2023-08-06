@@ -1,6 +1,6 @@
 import React from "react";
 import operators from '../../operatorsData';
-import { PageContainer, OperatorList, OperatorItem, OperatorForm, Input, Button, Buttons, TabButton, ShelterForm } from './HomeStyle';
+import { PageContainer, OperatorList, OperatorItem, OperatorForm, Input, Button, Buttons, TabButton, ShelterForm, Button2 } from './HomeStyle';
 import { useState, useRef } from "react";
 
 export default function Home() {
@@ -58,27 +58,43 @@ export default function Home() {
       setCountMen(countMen-1)
     } else setCountWomen(countWomen-1);
   };
-  const [meters, setMeters] = useState(0);
-  const [hours, setHours] = useState(0);
-  
+  //const [meters, setMeters] = useState(1);
+  //const [hours, setHours] = useState(1);   
+  const [hoursmeters, setHoursmeters] = useState({
+    name:''
+  });
   const handleChange2 = (e) => {
-    setMeters(e.target.value);
-    validateCapacity();
+    /*setMeters(e.target.value);     
+    const delta = (((countMen*1)+(countWomen*0.5))*hours)-meters; 
+    validateCapacity (delta); 
+    console.log(hours, meters, delta); */
+    const updateHoursmeters = {...hoursmeters, [e.target.name]: e.target.value};
+    setHoursmeters(updateHoursmeters); 
+    validateCapacity(updateHoursmeters);  
   };
-  const handleChange3 = (e) => {
-    setHours(e.target.value);
-    validateCapacity();
-  };
+
+  /*const handleChange3 = (e) => {    
+    setHours(e.target.value); 
+    const delta = (((countMen*1)+(countWomen*0.5))*hours)-meters; 
+    validateCapacity (delta); 
+    console.log(meters, hours, delta);  
+  };*/
+
   const [capacity,setCapacity] =useState(false);
   
-  const validateCapacity = () => {    
-    if ((((countMen*1)+(countWomen*0.5))*hours) < meters) {
-      return setCapacity(false);
-    } else setCapacity(true);
+  const validateCapacity = (d) => {  
+        
+    if (((countMen*1)+(countWomen*0.5))*d.hours < d.meters) {
+      setCapacity(false);      
+    } else {
+      setCapacity(true);           
+    };    
+  }; 
+  const test = () => {
+    console.log('active')
   };
-    const test =() => {
-    console.log((((countMen*1)+(countWomen*0.5))*hours))
-  };
+  
+  
   return (
     <PageContainer>
       <Buttons>
@@ -127,11 +143,11 @@ export default function Home() {
             value='men'                                     
             onChange={handleChange}         
             />MEN       
-          <Input 
+          <Input             
             type='radio'
             name='gender'
             value='women'           
-            onChange={handleChange}         
+            onChange={handleChange}                     
             />WOMEN  
           <Button disabled={!valid} onClick={handleAdd}>Add Employee</Button>
         </OperatorForm>
@@ -139,20 +155,26 @@ export default function Home() {
       {activeTab === 'shelter-storage' &&
       <>
         <h3 style={{color: '#73453F'}}>PLANNING EXCAVATION WORKS</h3>
-        <p>MEN: {countMen} </p>
-        <p>WOMEN: {countWomen} </p>
+        <p style={{
+                    color: '#73453F',
+                    fontWeight: 'bolder',}}>MEN: {countMen} </p>
+        <p style={{
+                    color: '#73453F',
+                    fontWeight: 'bolder',}}>WOMEN: {countWomen} </p>
         <ShelterForm>
           <Input 
           type="number"
           min="0"
-          placeholder="Enter meters"        
-          onChange={handleChange2}/>          
+          name='meters'
+          placeholder="Enter meters"                 
+          onChange={handleChange2}/>         
           <Input 
           type="number"
           min="0"
-          placeholder="Enter hours"   
-          onChange={handleChange3}/>                                
-          <Button disabled={!capacity} onClick={test}>Work planning</Button>        
+          name='hours'
+          placeholder="Enter hours"            
+          onChange={handleChange2}/>                              
+          <Button2 name={capacity.toString()} disabled={!capacity} onClick={test}>Work planning</Button2>        
         </ShelterForm>
       </>}  
     </PageContainer>  

@@ -40,6 +40,7 @@ export const Input = styled.input`
 width: 130px;
 height: 25px;
 padding-left: 10px;
+margin: 5px;
 `;
 
 export const Button = styled.button`
@@ -49,11 +50,14 @@ background-color: black;
 color:#D9C0AE;
 border:none;
 border-radius: 5px;
+padding-left: 15px;
+padding-right: 15px;
+cursor: pointer;
 `;
 
 export const Buttons = styled(OperatorForm)`          
   margin: 30px 0;
-  height: 40px;
+  height: 40px;  
 `;
 
 export const TabButton = styled.button`
@@ -64,14 +68,17 @@ export const TabButton = styled.button`
   height: 100%;
   width: 48%;
   border: 1px solid white;
-  color: white;
+  border-radius: 5px;
+  color: #73453F;
+  font-weight: bold;
   font-size: 20px;
   cursor: pointer;
   background-color: transparent;
   ${(props) =>{
     if (props.name === props['data-active']){              //zmena pozadi tlacitka pri aktivaci vyberu
       return `
-        background-color: black`;
+        background-color: black;
+        color: #D9C0AE`;
     }
   }}
 `;
@@ -80,5 +87,15 @@ export const ShelterForm = styled(OperatorForm)`
 
     flex-direction: column;
 
-`;     
+`;
+
+export const Button2 = styled(Button)`
+  background-color: #8E2446 ;
+  ${(props) => {
+    if (props.name === 'true'){
+      return`
+        background-color: #485312`;
+    }
+  }}
+`;
 
