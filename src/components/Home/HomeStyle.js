@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const PageContainer = styled.div`
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: column;  
   min-height: 100vh;
   width: 100%;
   align-items: center;
@@ -13,7 +13,7 @@ export const PageContainer = styled.div`
 export const OperatorList = styled.div`
     display: flex;
     flex-direction: column;
-    width: 500px;
+    width: 90%;
     background: transparent;
 `;
 
@@ -30,6 +30,7 @@ export const OperatorItem = styled.div`
 `;
 export const OperatorForm = styled(OperatorList)`
 flex-direction: row;
+flex-wrap: wrap;
 margin: 50px 0;
 padding-top: 0;
 justify-content: space-between;
@@ -37,10 +38,11 @@ align-items: center;
 `;
 
 export const Input = styled.input`
-width: 130px;
+width: 150px;
 height: 25px;
-padding-left: 10px;
+text-align:center;
 margin: 5px;
+
 `;
 
 export const Button = styled.button`
@@ -57,21 +59,24 @@ cursor: pointer;
 
 export const Buttons = styled(OperatorForm)`          
   margin: 30px 0;
-  height: 40px;  
+  height: 40px; 
+  display: flex;
+  justify-content: center; 
 `;
 
-export const TabButton = styled.button`
-  display: flex;
+export const TabButton = styled.button`  
   text-align: center;
   align-items: center;
   justify-content: center;
   height: 100%;
-  width: 48%;
+  width: auto;
+  padding: 0 10px;
+  margin: 0 5px;
   border: 1px solid white;
   border-radius: 5px;
   color: #73453F;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 15px;
   cursor: pointer;
   background-color: transparent;
   ${(props) =>{

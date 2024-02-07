@@ -118,7 +118,7 @@ export default function Home() {
                     width: 25 + 'px' 
                 }}
                 onClick={() => {handleDelete(operator.id, operator.gender)}}>
-                X
+                x
                 </button>
               </OperatorItem>
             )
@@ -127,7 +127,7 @@ export default function Home() {
         <OperatorForm>
           <Input
             type='text'
-            placeholder='jmeno'
+            placeholder='name'
             name='name'
             value={newOperator.name}
             onChange={handleChange} />       
